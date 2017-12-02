@@ -1,20 +1,28 @@
 package org.lafeuille.adventofcode.y2017.d01
 
+import org.lafeuille.adventofcode.y2017.d01.Day01.{myInput, numbers}
+
+import scala.io.Source
 import scala.io.Source.fromURL
 
-object Day01 extends App {
+object Day01 {
 
-  def myInput: String =
-    fromURL(getClass.getResource("input.txt")).mkString
+  def myInput: Source =
+    fromURL(getClass.getResource("input.txt"))
 
-  def compute(input: String): Int = {
-    val sum = 0
+  def numbers(input: Source): List[Int] =
+    input.toList.map(_.toInt)
 
-    do {
+}
 
-    } while (true)
+object Day01Part1 extends App {
 
-    sum
+  def compute(numbers: List[Int]): Int = {
+    numbers.zip(numbers.tail ::: numbers.head :: Nil)
+      .filter { case (x, y) => x == y }
+      .map { case (x, _) => x }
+      .sum
   }
 
+  println(compute(numbers(myInput)))
 }
