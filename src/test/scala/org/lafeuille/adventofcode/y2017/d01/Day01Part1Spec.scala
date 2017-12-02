@@ -6,7 +6,7 @@ import org.scalatest.{Matchers, WordSpec}
 
 class Day01Part1Spec extends WordSpec with Matchers with TableDrivenPropertyChecks {
 
-  "Sample input" should {
+  "Sample input with 1st method" should {
 
     val samples = Table(
       ("Numbers", "Sum"),
@@ -17,13 +17,13 @@ class Day01Part1Spec extends WordSpec with Matchers with TableDrivenPropertyChec
     )
 
     forAll(samples) { (numbers, sum) =>
-      s"have $numbers sum be $sum" in {
+      s"have ${numbers.mkString(",")} sum be $sum" in {
         Day01Part1.compute(numbers) shouldBe sum
       }
     }
   }
 
-  "My input" should {
+  "My input with 1st method" should {
     val myResult = 1034
 
     s"have sum be $myResult" in {

@@ -1,7 +1,6 @@
 package org.lafeuille.adventofcode.y2017.d01
 
 import org.lafeuille.adventofcode.y2017.d01.Day01.{myInput, numbers}
-import org.lafeuille.adventofcode.y2017.d01.Day01Part1.compute
 
 import scala.io.Source
 import scala.io.Source.fromURL
