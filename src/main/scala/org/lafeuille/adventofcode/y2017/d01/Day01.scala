@@ -11,7 +11,7 @@ object Day01 {
     fromURL(getClass.getResource("input.txt"))
 
   def numbers(input: Source): List[Int] =
-    input.toList.map(_.toInt)
+    input.toList.map(_.toString).map(_.toInt)
 
 }
 
