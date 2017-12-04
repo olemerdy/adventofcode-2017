@@ -26,7 +26,8 @@ class Day04Part2Spec extends WordSpec with Matchers with TableDrivenPropertyChec
     )
 
     forAll(passphrases) { (passphrase, isValid) =>
-      s"have passphrase $passphrase be valid: $isValid" in {
+      val validTxt = if (isValid) "valid" else "invalid"
+      s"have passphrase \'$passphrase\' be $validTxt" in {
         Day04Part2.isValid(passphrase) shouldBe isValid
       }
     }

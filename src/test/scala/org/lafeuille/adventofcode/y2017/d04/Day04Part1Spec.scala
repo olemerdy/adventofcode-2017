@@ -1,8 +1,8 @@
 package org.lafeuille.adventofcode.y2017.d04
 
 import org.lafeuille.adventofcode.y2017.d04.Day04.{myInput, passphrases}
-import org.scalatest.{Matchers, WordSpec}
 import org.scalatest.prop.TableDrivenPropertyChecks
+import org.scalatest.{Matchers, WordSpec}
 
 class Day04Part1Spec extends WordSpec with Matchers with TableDrivenPropertyChecks {
 
@@ -24,7 +24,8 @@ class Day04Part1Spec extends WordSpec with Matchers with TableDrivenPropertyChec
     )
 
     forAll(passphrases) { (passphrase, isValid) =>
-      s"have passphrase $passphrase be valid: $isValid" in {
+      val validTxt = if (isValid) "valid" else "invalid"
+      s"have passphrase \'$passphrase\' be $validTxt" in {
         Day04Part1.isValid(passphrase) shouldBe isValid
       }
     }

@@ -5,6 +5,14 @@ import org.scalatest.prop.TableDrivenPropertyChecks
 
 class Day03Part1Spec extends WordSpec with Matchers with TableDrivenPropertyChecks {
 
+  "My input" should {
+    val myResult = 480
+
+    s"require $myResult moves" in {
+      Day03Part1.moves(Day03.myInput) shouldBe myResult
+    }
+  }
+
   "Sample input with 1st method" should {
 
     val squares = Table(
