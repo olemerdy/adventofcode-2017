@@ -14,10 +14,10 @@ object Day03 {
 
 object Spiral {
 
-  def initial(value: Int, pos: Position, f: Int => Int) =
-    Spiral(value, Pos(pos, CardinalDirection.East), Map(value -> pos), Map(pos -> value), f)
+  def initial(value: Int, pos: Position, f: (Spiral, Position, Int) => Int) =
+    Spiral(value, Pos(pos, CardinalDirection.South), Map(value -> pos), Map(pos -> value), f)
 
-  def target(initialValue: Int, initialPos: Position)(goal: Int)(f: Int => Int): Spiral = {
+  def target(initialValue: Int, initialPos: Position)(goal: Int)(f: (Spiral, Position, Int) => Int): Spiral = {
     var spiral = Spiral.initial(initialValue, initialPos, f)
     while (spiral.currentValue < goal) {
       spiral = spiral.next
@@ -49,7 +49,7 @@ case class Spiral(currentValue: Int,
                   currentPos: Pos,
                   valueToPos: Map[Int, Position],
                   posToValue: Map[Position, Int],
-                  f: Int => Int) {
+                  f: (Spiral, Position, Int) => Int) {
 
   def pos(value: Int): Option[Position] =
     valueToPos.get(value)
@@ -67,7 +67,7 @@ case class Spiral(currentValue: Int,
         currentPos.move(RelativeDirection.Forward)
       else
         leftPos
-    val nextValue = f(currentValue)
+    val nextValue = f(this, nextPos.value, currentValue)
 
     copy(
       nextValue,
@@ -82,7 +82,7 @@ case class Spiral(currentValue: Int,
 object Day03Part1 extends App {
 
   def moves(square: Int): Int = {
-    val spiral = Spiral.target(1, Position(0, 0))(square)(_ + 1)
+    val spiral = Spiral.target(1, Position(0, 0))(square)((_, _, value) => value + 1)
     Pos.distance(spiral.valueToPos(square))
   }
 
@@ -90,5 +90,18 @@ object Day03Part1 extends App {
 }
 
 object Day03Part2 extends App {
+
+  def spiral(square: Int): Spiral =
+    Spiral.target(1, Position(0, 0))(square) { (spiral, position, _) =>
+      position.neighbors
+        .map(p => spiral.value(p).getOrElse(0))
+        .sum
+    }
+
+  def moves(square: Int): Int = {
+    Pos.distance(spiral(square).valueToPos(square))
+  }
+
+  println(moves(Day03.myInput))
 
 }
