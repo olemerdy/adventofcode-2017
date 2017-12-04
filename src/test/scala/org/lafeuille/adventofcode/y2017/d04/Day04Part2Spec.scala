@@ -7,7 +7,7 @@ import org.scalatest.{Matchers, WordSpec}
 class Day04Part2Spec extends WordSpec with Matchers with TableDrivenPropertyChecks {
 
   "My input with 1st method" should {
-    val myResult = 386
+    val myResult = 208
 
     s"have $myResult valid passphrases" in {
       passphrases(myInput).count(p => Day04Part2.isValid(p)) shouldBe myResult
@@ -22,7 +22,7 @@ class Day04Part2Spec extends WordSpec with Matchers with TableDrivenPropertyChec
       ("abcde xyz ecdab", false),
       ("a ab abc abd abf abj", true),
       ("iiii oiii ooii oooi oooo", true),
-      ("oiii ioii iioi iiio", false²)
+      ("oiii ioii iioi iiio", false)
     )
 
     forAll(passphrases) { (passphrase, isValid) =>

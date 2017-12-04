@@ -2,8 +2,7 @@ package org.lafeuille.adventofcode.y2017.d04
 
 import scala.io.Source
 import scala.io.Source.fromURL
-import Day04.{countValid, myInput, passphrases}
-import org.lafeuille.adventofcode.y2017.d04.Day04Part1.isValid
+import Day04.{myInput, passphrases}
 
 object Day04 {
 
@@ -27,7 +26,12 @@ object Day04Part1 extends App {
 
 object Day04Part2 extends App {
 
-  def isValid(passphrase: String): Boolean = ???
+  def isValid(passphrase: String): Boolean = {
+    val words = passphrase.split("\\s+")
+      .map(word => word.toList.sorted)
+
+    words.length == words.toSet.size
+  }
 
   println(passphrases(myInput).count(p => isValid(p)))
 }
