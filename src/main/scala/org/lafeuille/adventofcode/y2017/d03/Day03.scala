@@ -1,8 +1,8 @@
 package org.lafeuille.adventofcode.y2017.d03
 
 import org.lafeuille.adventofcode.y2017.core.CardinalDirection.CardinalDirection
-import org.lafeuille.adventofcode.y2017.core.{CardinalDirection, Position, RelativeDirection}
 import org.lafeuille.adventofcode.y2017.core.RelativeDirection.RelativeDirection
+import org.lafeuille.adventofcode.y2017.core.{CardinalDirection, Position, RelativeDirection}
 
 import scala.language.implicitConversions
 
@@ -98,10 +98,9 @@ object Day03Part2 extends App {
         .sum
     }
 
-  def moves(square: Int): Int = {
-    Pos.distance(spiral(square).valueToPos(square))
-  }
+  def firstValueGreaterThan(square: Int): Int =
+    spiral(square).currentValue
 
-  println(moves(Day03.myInput))
+  println(firstValueGreaterThan(Day03.myInput))
 
 }

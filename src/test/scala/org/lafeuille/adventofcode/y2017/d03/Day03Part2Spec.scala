@@ -1,10 +1,19 @@
 package org.lafeuille.adventofcode.y2017.d03
 
 import org.lafeuille.adventofcode.y2017.core.Position
-import org.scalatest.{Matchers, WordSpec}
 import org.scalatest.prop.TableDrivenPropertyChecks
+import org.scalatest.{Matchers, WordSpec}
 
 class Day03Part2Spec extends WordSpec with Matchers with TableDrivenPropertyChecks {
+
+  "My input" should {
+
+    val result = 349975
+
+    s"should have first value greater than ${Day03.myInput} be $result" in {
+      Day03Part2.firstValueGreaterThan(Day03.myInput) shouldBe result
+    }
+  }
 
   "Sample input with 2nd method" should {
 
