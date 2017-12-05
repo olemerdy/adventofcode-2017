@@ -1,8 +1,9 @@
 package org.lafeuille.adventofcode.y2017.d04
 
+import org.lafeuille.adventofcode.y2017.d04.Day04.{myInput, passphrases}
+
 import scala.io.Source
 import scala.io.Source.fromURL
-import Day04.{myInput, passphrases}
 
 object Day04 {
 
@@ -10,7 +11,7 @@ object Day04 {
     fromURL(getClass.getResource("input.txt"))
 
   def passphrases(input: Source): List[String] =
-    input.getLines().toList
+    input.getLines.toList
 
 }
 
