@@ -1,10 +1,16 @@
 package org.lafeuille.adventofcode.y2017.d07
 
+import org.lafeuille.adventofcode.y2017.d07.Day07.{myInput, nodes}
+
 import scala.io.Source
 import scala.io.Source.fromURL
 import scala.util.matching.Regex
 
-case class NodeInfo(id: String, weight: Int, children: List[String])
+case class NodeInfo(name: String, weight: Int, children: List[String]) {
+  lazy val isLeaf: Boolean = children.isEmpty
+
+  lazy val isRoot: Boolean = !isLeaf
+}
 
 object Day07 {
 
@@ -17,7 +23,7 @@ object Day07 {
   def parse(line: String): NodeInfo = {
     val matches = Day07.regex.findAllIn(line)
     NodeInfo(
-      id = matches.group(1),
+      name = matches.group(1),
       weight = matches.group(2).toInt,
       children = Option(matches.group(4)).map(_.split(",\\s*").toList).getOrElse(Nil)
     )
@@ -29,5 +35,12 @@ object Day07 {
 }
 
 object Day07Part1 extends App {
-  println(Day07.nodes(Day07.myInput))
+
+  def findRoot(nodes: List[NodeInfo]): NodeInfo = {
+    val roots = nodes.filter(_.isRoot)
+    val children = roots.flatMap(_.children)
+    roots.filter(root => !children.contains(root.name)).head
+  }
+
+  println(findRoot(nodes(myInput)))
 }
