@@ -4,7 +4,7 @@ import scala.annotation.tailrec
 import scala.io.Source
 import scala.io.Source.fromURL
 
-object Day06 {
+object Day06 extends App {
 
   def myInput: Source =
     fromURL(getClass.getResource("input.txt"))
@@ -12,16 +12,12 @@ object Day06 {
   def banks(input: Source): List[Int] =
     input.mkString.split("\\s+").map(_.toInt).toList
 
-}
-
-object Day06Part1 extends App {
-
-  def steps(banks: List[Int]): Int = {
+  def steps(banks: List[Int]): (Int, Int) = {
 
     def redistribute(banks: List[Int]): List[Int] = {
 
       @tailrec
-      def redistributeRec(idx: Int, blocks: Int, banks: List[Int]): List[Int] = {
+      def redistributeRec(idx: Int, blocks: Int, banks: List[Int]): List[Int] =
         if (blocks <= 0)
           banks
         else {
@@ -29,21 +25,20 @@ object Day06Part1 extends App {
           val newBanks = banks.updated(newIdx, banks(newIdx) + 1)
           redistributeRec(newIdx, blocks - 1, newBanks)
         }
-      }
 
       val i = banks.indexOf(banks.max)
       redistributeRec(i, banks(i), banks.updated(i, 0))
     }
 
     @tailrec
-    def stepsRec(step: Int, banks: List[Int], visited: Set[List[Int]]): Int =
+    def stepsRec(step: Int, banks: List[Int], visited: List[List[Int]]): (Int, Int) =
       if (visited.contains(banks))
-        step
+        (step, visited.indexOf(banks) + 1)
       else
-        stepsRec(step + 1, redistribute(banks), visited + banks)
+        stepsRec(step + 1, redistribute(banks), banks :: visited)
 
-    stepsRec(0, banks, Set.empty)
+    stepsRec(0, banks, Nil)
   }
 
-  println(steps(Day06.banks(Day06.myInput)))
+  println(steps(banks(myInput)))
 }
