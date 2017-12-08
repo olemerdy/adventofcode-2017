@@ -4,7 +4,6 @@ import org.lafeuille.adventofcode.y2017.d07.Day07.getClass
 import org.scalatest.{Matchers, WordSpec}
 import org.scalatest.prop.TableDrivenPropertyChecks
 
-import scala.io.Source
 import scala.io.Source.fromURL
 
 class Day07Part1Spec extends WordSpec with Matchers with TableDrivenPropertyChecks {
