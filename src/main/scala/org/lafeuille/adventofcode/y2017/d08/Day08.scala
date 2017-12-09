@@ -24,7 +24,7 @@ object Comparison extends Enumeration {
 case class Action(register: String, operation: Operation, value: Int) {
   def apply(map: Map[String, Int]): Map[String, Int] = map.updated(register, operation match {
     case Operation.`+` => map(register) + value
-    case Operation.`-` => map(register) + value
+    case Operation.`-` => map(register) - value
   })
 }
 
@@ -67,8 +67,7 @@ object Day08 {
 
 object Day08Part1 extends App {
 
-  def largestValue(instructions: List[Instruction]): Int = {
-
+  def finalState(instructions: List[Instruction]): Map[String, Int] = {
     @tailrec
     def rec(map: Map[String, Int], instructions: List[Instruction]): Map[String, Int] = instructions match {
       case Nil => map
@@ -76,9 +75,33 @@ object Day08Part1 extends App {
       case _ :: tail => rec(map, tail)
     }
 
-    val map = rec(Map[String, Int]().withDefaultValue(0), instructions)
-    map.values.max
+    rec(Map[String, Int]().withDefaultValue(0), instructions)
+  }
+
+  def largestValue(instructions: List[Instruction]): Int = {
+    finalState(instructions).values.max
   }
 
   println(largestValue(instructions(myInput)))
+}
+
+object Day08Part2 extends App {
+
+  def finalState(instructions: List[Instruction]): (Map[String, Int], Int) = {
+    @tailrec
+    def rec(map: Map[String, Int], highest: Int, instructions: List[Instruction]): (Map[String, Int], Int) = instructions match {
+      case Nil => (map, highest)
+      case h :: tail if h.condition(map) =>
+        val max = Math.max(if (map.isEmpty) 0 else map.values.max, highest)
+        rec(h.action(map), max, tail)
+      case _ :: tail => rec(map, highest, tail)
+    }
+
+    rec(Map[String, Int]().withDefaultValue(0), 0, instructions)
+  }
+
+  def highestValue(instructions: List[Instruction]): Int =
+    finalState(instructions)._2
+
+  println(highestValue(instructions(myInput)))
 }
