@@ -1,6 +1,6 @@
 package org.lafeuille.adventofcode.y2017.d07
 
-import org.lafeuille.adventofcode.y2017.d07.Day07.{myInput, nodes}
+import org.lafeuille.adventofcode.y2017.d07.Day07.{myInput, nodeInfos}
 
 import scala.io.Source
 import scala.io.Source.fromURL
@@ -29,18 +29,37 @@ object Day07 {
     )
   }
 
-  def nodes(input: Source): List[NodeInfo] =
+  def nodeInfos(input: Source): List[NodeInfo] =
     input.getLines().map(parse).toList
 
 }
 
 object Day07Part1 extends App {
 
-  def findRoot(nodes: List[NodeInfo]): NodeInfo = {
-    val roots = nodes.filter(_.isRoot)
+  def findRoot(nodeInfos: List[NodeInfo]): NodeInfo = {
+    val roots = nodeInfos.filter(_.isRoot)
     val children = roots.flatMap(_.children)
     roots.filter(root => !children.contains(root.name)).head
   }
 
-  println(findRoot(nodes(myInput)))
+  println(findRoot(nodeInfos(myInput)))
+}
+
+case class Node(name: String, weight: Int, children: List[Node]) {
+  lazy val totalWeight: Int =
+    weight + children.map(_.totalWeight).sum
+}
+
+object Day07Part2 extends App {
+
+  def rec(nodeNames: List[String], nodeInfos: Map[String, NodeInfo], nodes: Map[String, Node]): Map[String, Node] = {
+    ???
+  }
+
+  def buildTree(nodeInfos: List[NodeInfo]): Node = {
+    val nodes =
+      rec(nodeInfos.map(_.name), nodeInfos.groupBy(_.name).mapValues(_.head), Map[String, Node]())
+    ???
+  }
+
 }
