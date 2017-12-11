@@ -7,7 +7,7 @@ import scala.io.Source.fromURL
 class Day08Part2Spec extends WordSpec with Matchers {
 
   "My input" should {
-    val myResult = 5102
+    val myResult = 6056
 
     s"have largest value be $myResult" in {
       Day08Part2.highestValue(Day08.instructions(Day08.myInput)) shouldBe myResult
