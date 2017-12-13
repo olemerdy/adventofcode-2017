@@ -47,7 +47,7 @@ object Day11 {
 
 object Day11Part1 extends App {
 
-  def finalCoord(directions: List[HexDirection]): HexCoordinate = {
+  def steps(directions: List[HexDirection]): Int = {
 
     @tailrec
     def rec(coord: HexCoordinate, directions: List[HexDirection]): HexCoordinate =
@@ -56,10 +56,10 @@ object Day11Part1 extends App {
         case h :: tail => rec(coord.move(h), tail)
       }
 
-    rec(HexCoordinate(0, 0, 0), directions)
+    rec(HexCoordinate(0, 0, 0), directions).distance()
   }
 
-  println(finalCoord(Day11.directions(Day11.myInput)).distance())
+  println(steps(Day11.directions(Day11.myInput)))
 }
 
 object Day11Part2 extends App {

@@ -52,9 +52,17 @@ case class Node(name: String, weight: Int, children: List[Node]) {
 
 object Day07Part2 extends App {
 
-  def rec(nodeNames: List[String], nodeInfos: Map[String, NodeInfo], nodes: Map[String, Node]): Map[String, Node] = {
-    ???
-  }
+  def rec(nodeNames: List[String], nodeInfos: Map[String, NodeInfo], nodes: Map[String, Node]): Map[String, Node] =
+    nodeNames match {
+      case Nil => nodes
+      case h :: tail =>
+        if (nodes.contains(h)) {
+          rec(tail, nodeInfos, nodes)
+        } else {
+
+        }
+    }
+
 
   def buildTree(nodeInfos: List[NodeInfo]): Node = {
     val nodes =
