@@ -59,7 +59,7 @@ object Day07Part2 extends App {
         if (nodes.contains(h)) {
           rec(tail, nodeInfos, nodes)
         } else {
-
+          ???
         }
     }
 
